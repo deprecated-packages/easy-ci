@@ -1,27 +1,35 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Symplify\EasyCI\ValueObject;
 
 use Symplify\EasyCI\Contract\ValueObject\FileErrorInterface;
-use Symplify\SmartFileSystem\SmartFileInfo;
-
+use EasyCI202301\Symplify\SmartFileSystem\SmartFileInfo;
 final class LineAwareFileError implements FileErrorInterface
 {
-    public function __construct(
-        private string $errorMessage,
-        private SmartFileInfo $smartFileInfo,
-        private int $line
-    ) {
+    /**
+     * @var string
+     */
+    private $errorMessage;
+    /**
+     * @var \Symplify\SmartFileSystem\SmartFileInfo
+     */
+    private $smartFileInfo;
+    /**
+     * @var int
+     */
+    private $line;
+    public function __construct(string $errorMessage, SmartFileInfo $smartFileInfo, int $line)
+    {
+        $this->errorMessage = $errorMessage;
+        $this->smartFileInfo = $smartFileInfo;
+        $this->line = $line;
     }
-
-    public function getErrorMessage(): string
+    public function getErrorMessage() : string
     {
         return $this->errorMessage;
     }
-
-    public function getRelativeFilePath(): string
+    public function getRelativeFilePath() : string
     {
         $relativeFilePath = $this->smartFileInfo->getRelativeFilePath();
         return $relativeFilePath . ':' . $this->line;

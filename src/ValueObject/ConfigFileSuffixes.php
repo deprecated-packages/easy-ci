@@ -1,7 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Symplify\EasyCI\ValueObject;
 
 final class ConfigFileSuffixes
@@ -10,9 +9,8 @@ final class ConfigFileSuffixes
      * @var string[]
      */
     public const SUFFIXES = ['yml', 'yaml', 'neon'];
-
-    public static function provideRegex(): string
+    public static function provideRegex() : string
     {
-        return '#(' . implode('|', self::SUFFIXES) . ')$#';
+        return '#(' . \implode('|', self::SUFFIXES) . ')$#';
     }
 }
