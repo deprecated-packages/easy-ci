@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCI\ActiveClass;
 
+use Nette\Utils\FileSystem;
 use PhpParser\NodeTraverser;
 use PhpParser\Parser;
 use Symfony\Component\Finder\SplFileInfo;
@@ -25,9 +26,11 @@ final class ClassNameResolver
     /**
      * @api
      */
-    public function resolveFromFromFileInfo(SmartFileInfo|SplFileInfo $fileInfo): ?string
+    public function resolveFromFromFilePath(string $filePath): ?string
     {
-        $stmts = $this->parser->parse($fileInfo->getContents());
+        $fileContents = FileSystem::read($filePath);
+
+        $stmts = $this->parser->parse($fileContents);
         if ($stmts === null) {
             return null;
         }

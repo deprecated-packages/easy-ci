@@ -16,20 +16,20 @@ final class ClassNamesFinder
     }
 
     /**
-     * @param SmartFileInfo[] $phpFileInfos
+     * @param string[] $filePaths
      * @return FileWithClass[]
      */
-    public function resolveClassNamesToCheck(array $phpFileInfos): array
+    public function resolveClassNamesToCheck(array $filePaths): array
     {
         $filesWithClasses = [];
 
-        foreach ($phpFileInfos as $phpFileInfo) {
-            $className = $this->classNameResolver->resolveFromFromFileInfo($phpFileInfo);
+        foreach ($filePaths as $filePath) {
+            $className = $this->classNameResolver->resolveFromFromFilePath($filePath);
             if ($className === null) {
                 continue;
             }
 
-            $filesWithClasses[] = new FileWithClass($phpFileInfo, $className);
+            $filesWithClasses[] = new FileWithClass($filePath, $className);
         }
 
         return $filesWithClasses;

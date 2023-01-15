@@ -34,7 +34,7 @@ final class UnusedClassReporter
 
         foreach ($unusedFilesWithClasses as $unusedFileWithClass) {
             $this->symfonyStyle->writeln(' * ' . $unusedFileWithClass->getClassName());
-            $this->symfonyStyle->writeln($unusedFileWithClass->getRelativeFilepath());
+            $this->symfonyStyle->writeln($unusedFileWithClass->getFilePath());
             $this->symfonyStyle->newLine();
         }
 

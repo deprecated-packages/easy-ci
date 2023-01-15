@@ -13,6 +13,7 @@ use Symplify\EasyCI\ActiveClass\Filtering\PossiblyUnusedClassesFilter;
 use Symplify\EasyCI\ActiveClass\Finder\ClassNamesFinder;
 use Symplify\EasyCI\ActiveClass\Reporting\UnusedClassReporter;
 use Symplify\EasyCI\ActiveClass\UseImportsResolver;
+use Symplify\EasyCI\Finder\PhpFilesFinder;
 use Symplify\EasyCI\ValueObject\Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\Finder\SmartFinder;
@@ -26,7 +27,8 @@ final class CheckActiveClassCommand extends Command
         private readonly UseImportsResolver $useImportsResolver,
         private readonly PossiblyUnusedClassesFilter $possiblyUnusedClassesFilter,
         private readonly UnusedClassReporter $unusedClassReporter,
-        private readonly SymfonyStyle $symfonyStyle
+        private readonly SymfonyStyle $symfonyStyle,
+        private readonly PhpFilesFinder $phpFilesFinder,
     ) {
         parent::__construct();
     }
@@ -45,14 +47,13 @@ final class CheckActiveClassCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $phpFileInfos = $this->findPhpFiles($input);
+        $phpFilePaths = $this->phpFilesFinder->findPhpFiles($input);
 
-        $phpFilesCount = is_countable($phpFileInfos) ? count($phpFileInfos) : 0;
-        $this->symfonyStyle->progressStart($phpFilesCount);
+        $this->symfonyStyle->progressStart(count($phpFilePaths));
 
         $usedNames = [];
-        foreach ($phpFileInfos as $phpFileInfo) {
-            $currentUsedNames = $this->useImportsResolver->resolve($phpFileInfo);
+        foreach ($phpFilePaths as $phpFilePath) {
+            $currentUsedNames = $this->useImportsResolver->resolve($phpFilePath);
             $usedNames = array_merge($usedNames, $currentUsedNames);
 
             $this->symfonyStyle->progressAdvance();
@@ -61,7 +62,7 @@ final class CheckActiveClassCommand extends Command
         $usedNames = array_unique($usedNames);
         sort($usedNames);
 
-        $existingFilesWithClasses = $this->classNamesFinder->resolveClassNamesToCheck($phpFileInfos);
+        $existingFilesWithClasses = $this->classNamesFinder->resolveClassNamesToCheck($phpFilePaths);
 
         $possiblyUnusedFilesWithClasses = $this->possiblyUnusedClassesFilter->filter(
             $existingFilesWithClasses,
@@ -70,29 +71,4 @@ final class CheckActiveClassCommand extends Command
 
         return $this->unusedClassReporter->reportResult($possiblyUnusedFilesWithClasses, $existingFilesWithClasses);
     }
-
-    ///**
-    // * @return string[]
-    // */
-    //private function findPhpFiles(InputInterface $input): array
-    //{
-    //    $excludedCheckPaths = $this->parameterProvider->provideArrayParameter(Option::EXCLUDED_CHECK_PATHS);
-    //
-    //    $paths = (array)$input->getArgument(Option::SOURCES);
-    //
-    //    // fallback to config paths
-    //    if ($paths === []) {
-    //        $paths = $this->parameterProvider->provideArrayParameter(Option::PATHS);
-    //    }
-    //
-    //    $fileInfos = $this->smartFinder->find($paths, '*.php', $excludedCheckPaths);
-    //
-    //    $filePaths = array_map(
-    //        fn (\SplFileInfo $fileInfo): string => $fileInfo->getRealPath(),
-    //        $fileInfos
-    //    );
-    //
-    //    Assert::allString($filePaths);
-    //    return $filePaths;
-    //}
 }
