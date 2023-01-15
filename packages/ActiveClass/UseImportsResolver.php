@@ -16,8 +16,8 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class UseImportsResolver
 {
     public function __construct(
-        private Parser $parser,
-        private FullyQualifiedNameNodeDecorator $fullyQualifiedNameNodeDecorator,
+        private readonly Parser $parser,
+        private readonly FullyQualifiedNameNodeDecorator $fullyQualifiedNameNodeDecorator,
     ) {
     }
 

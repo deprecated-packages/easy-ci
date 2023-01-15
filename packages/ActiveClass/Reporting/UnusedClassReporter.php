@@ -11,7 +11,7 @@ use Symplify\EasyCI\ActiveClass\ValueObject\FileWithClass;
 final class UnusedClassReporter
 {
     public function __construct(
-        private SymfonyStyle $symfonyStyle
+        private readonly SymfonyStyle $symfonyStyle
     ) {
     }
 

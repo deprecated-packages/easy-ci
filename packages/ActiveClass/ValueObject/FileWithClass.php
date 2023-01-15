@@ -9,8 +9,8 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class FileWithClass
 {
     public function __construct(
-        private SmartFileInfo $fileInfo,
-        private string $className
+        private readonly SmartFileInfo $fileInfo,
+        private readonly string $className
     ) {
     }
 

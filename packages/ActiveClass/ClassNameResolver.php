@@ -17,8 +17,8 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassNameResolver
 {
     public function __construct(
-        private Parser $parser,
-        private FullyQualifiedNameNodeDecorator $fullyQualifiedNameNodeDecorator
+        private readonly Parser $parser,
+        private readonly FullyQualifiedNameNodeDecorator $fullyQualifiedNameNodeDecorator
     ) {
     }
 

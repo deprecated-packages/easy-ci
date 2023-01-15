@@ -35,7 +35,7 @@ final class PossiblyUnusedClassesFilter
     ];
 
     public function __construct(
-        private ParameterProvider $parameterProvider
+        private readonly ParameterProvider $parameterProvider
     ) {
     }
 

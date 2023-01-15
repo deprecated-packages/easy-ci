@@ -12,7 +12,7 @@ use Symplify\EasyCI\StaticDetector\ValueObject\StaticDetectorAttributeKey;
 final class FilePathNodeVisitor extends NodeVisitorAbstract
 {
     public function __construct(
-        private CurrentFileInfoProvider $currentFileInfoProvider
+        private readonly CurrentFileInfoProvider $currentFileInfoProvider
     ) {
     }
 

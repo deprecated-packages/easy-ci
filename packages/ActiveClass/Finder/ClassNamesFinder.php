@@ -11,7 +11,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class ClassNamesFinder
 {
     public function __construct(
-        private ClassNameResolver $classNameResolver,
+        private readonly ClassNameResolver $classNameResolver,
     ) {
     }
 

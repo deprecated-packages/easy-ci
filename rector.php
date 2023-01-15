@@ -24,6 +24,8 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/config',
         __DIR__ . '/src',
         __DIR__ . '/tests',
+        __DIR__ . '/packages',
+        __DIR__ . '/packages-tests',
     ]);
 
     $rectorConfig->importNames();
