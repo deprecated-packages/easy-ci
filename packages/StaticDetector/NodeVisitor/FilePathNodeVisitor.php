@@ -1,28 +1,28 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Symplify\EasyCI\StaticDetector\NodeVisitor;
 
-use PhpParser\Node;
-use PhpParser\NodeVisitorAbstract;
+use EasyCI202301\PhpParser\Node;
+use EasyCI202301\PhpParser\NodeVisitorAbstract;
 use Symplify\EasyCI\StaticDetector\CurrentProvider\CurrentFileInfoProvider;
 use Symplify\EasyCI\StaticDetector\ValueObject\StaticDetectorAttributeKey;
-
 final class FilePathNodeVisitor extends NodeVisitorAbstract
 {
-    public function __construct(
-        private readonly CurrentFileInfoProvider $currentFileInfoProvider
-    ) {
+    /**
+     * @readonly
+     * @var \Symplify\EasyCI\StaticDetector\CurrentProvider\CurrentFileInfoProvider
+     */
+    private $currentFileInfoProvider;
+    public function __construct(CurrentFileInfoProvider $currentFileInfoProvider)
+    {
+        $this->currentFileInfoProvider = $currentFileInfoProvider;
     }
-
-    public function enterNode(Node $node): Node
+    public function enterNode(Node $node) : Node
     {
         $smartFileInfo = $this->currentFileInfoProvider->getSmartFileInfo();
-
         $fileLine = $smartFileInfo->getRelativeFilePathFromCwd() . ':' . $node->getStartLine();
         $node->setAttribute(StaticDetectorAttributeKey::FILE_LINE, $fileLine);
-
         return $node;
     }
 }

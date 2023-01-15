@@ -1,26 +1,32 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Symplify\EasyCI\ValueObject;
 
 use Symplify\EasyCI\Contract\ValueObject\FileErrorInterface;
-use Symplify\SmartFileSystem\SmartFileInfo;
-
+use EasyCI202301\Symplify\SmartFileSystem\SmartFileInfo;
 final class FileError implements FileErrorInterface
 {
-    public function __construct(
-        private readonly string $errorMessage,
-        private readonly SmartFileInfo $smartFileInfo
-    ) {
+    /**
+     * @readonly
+     * @var string
+     */
+    private $errorMessage;
+    /**
+     * @readonly
+     * @var \Symplify\SmartFileSystem\SmartFileInfo
+     */
+    private $smartFileInfo;
+    public function __construct(string $errorMessage, SmartFileInfo $smartFileInfo)
+    {
+        $this->errorMessage = $errorMessage;
+        $this->smartFileInfo = $smartFileInfo;
     }
-
-    public function getErrorMessage(): string
+    public function getErrorMessage() : string
     {
         return $this->errorMessage;
     }
-
-    public function getRelativeFilePath(): string
+    public function getRelativeFilePath() : string
     {
         return $this->smartFileInfo->getRelativeFilePath();
     }

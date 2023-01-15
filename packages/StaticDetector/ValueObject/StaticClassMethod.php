@@ -1,32 +1,42 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Symplify\EasyCI\StaticDetector\ValueObject;
 
-use PhpParser\Node\Stmt\ClassMethod;
-
+use EasyCI202301\PhpParser\Node\Stmt\ClassMethod;
 final class StaticClassMethod
 {
-    public function __construct(
-        private readonly string $class,
-        private readonly string $method,
-        private readonly ClassMethod $classMethod
-    ) {
+    /**
+     * @readonly
+     * @var string
+     */
+    private $class;
+    /**
+     * @readonly
+     * @var string
+     */
+    private $method;
+    /**
+     * @readonly
+     * @var \PhpParser\Node\Stmt\ClassMethod
+     */
+    private $classMethod;
+    public function __construct(string $class, string $method, ClassMethod $classMethod)
+    {
+        $this->class = $class;
+        $this->method = $method;
+        $this->classMethod = $classMethod;
     }
-
-    public function getClass(): string
+    public function getClass() : string
     {
         return $this->class;
     }
-
-    public function getMethod(): string
+    public function getMethod() : string
     {
         return $this->method;
     }
-
-    public function getFileLocationWithLine(): string
+    public function getFileLocationWithLine() : string
     {
-        return $this->classMethod->getAttribute(StaticDetectorAttributeKey::FILE_LINE);
+        return $this->classMethod->getAttribute(\Symplify\EasyCI\StaticDetector\ValueObject\StaticDetectorAttributeKey::FILE_LINE);
     }
 }
