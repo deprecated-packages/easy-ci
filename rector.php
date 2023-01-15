@@ -9,10 +9,9 @@ use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
+        LevelSetList::UP_TO_PHP_81,
         SetList::CODE_QUALITY,
         SetList::DEAD_CODE,
-        // @todo bump to PHP 8.1
-        LevelSetList::UP_TO_PHP_80,
         SetList::CODING_STYLE,
         SetList::TYPE_DECLARATION,
         SetList::NAMING,

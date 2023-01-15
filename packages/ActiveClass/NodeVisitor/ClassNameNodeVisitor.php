@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCI\ActiveClass\NodeVisitor;
 
+use PhpParser\Node\Name;
 use Nette\Utils\Strings;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
@@ -45,6 +46,19 @@ final class ClassNameNodeVisitor extends NodeVisitorAbstract
             return null;
         }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 53c38c069 (fixup! misc)
+        if (! $node->namespacedName instanceof Name) {
+            return null;
+        }
+
+<<<<<<< HEAD
+>>>>>>> 8ad7af880 (fixup! misc)
+=======
+>>>>>>> 53c38c069 (fixup! misc)
         $this->className = $node->namespacedName->toString();
 
         return NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
