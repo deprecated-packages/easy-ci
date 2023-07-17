@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCI\Tests\Config\ConfigFileAnalyzer\NonExistingClassConstantExtractor;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Iterator;
 use Symplify\EasyCI\Config\ConfigFileAnalyzer\NonExistingClassConstantConfigFileAnalyzer;
 use Symplify\EasyCI\Kernel\EasyCIKernel;
@@ -22,9 +23,7 @@ final class NonExistingClassConstantExtractorTest extends AbstractKernelTestCase
         );
     }
 
-    /**
-     * @dataProvider provideData()
-     */
+    #[DataProvider('provideData')]
     public function test(string $filePath, int $expectedMissingCount): void
     {
         $fileInfo = new SmartFileInfo($filePath);
@@ -33,7 +32,7 @@ final class NonExistingClassConstantExtractorTest extends AbstractKernelTestCase
         $this->assertCount($expectedMissingCount, $nonExistingClassConstants);
     }
 
-    public function provideData(): Iterator
+    public static function provideData(): Iterator
     {
         yield [__DIR__ . '/Fixture/template/non_existing.latte', 1];
         yield [__DIR__ . '/Fixture/template/non_existing.twig', 1];

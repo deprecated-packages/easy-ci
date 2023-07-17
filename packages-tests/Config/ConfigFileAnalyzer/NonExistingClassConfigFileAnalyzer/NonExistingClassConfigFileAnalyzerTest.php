@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCI\Tests\Config\ConfigFileAnalyzer\NonExistingClassConfigFileAnalyzer;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Iterator;
 use Symplify\EasyCI\Config\ConfigFileAnalyzer\NonExistingClassConfigFileAnalyzer;
 use Symplify\EasyCI\Kernel\EasyCIKernel;
@@ -22,9 +23,7 @@ final class NonExistingClassConfigFileAnalyzerTest extends AbstractKernelTestCas
         require_once __DIR__ . '/Source/LowercaseFactory.php';
     }
 
-    /**
-     * @dataProvider provideData()
-     */
+    #[DataProvider('provideData')]
     public function test(string $filePath, int $expectedClassCount): void
     {
         $fileInfo = new SmartFileInfo($filePath);
@@ -33,7 +32,7 @@ final class NonExistingClassConfigFileAnalyzerTest extends AbstractKernelTestCas
         $this->assertCount($expectedClassCount, $nonExistingClasses);
     }
 
-    public function provideData(): Iterator
+    public static function provideData(): Iterator
     {
         yield [__DIR__ . '/Fixture/config/skip_psr4_autodiscovery.yaml', 0];
 
