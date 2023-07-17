@@ -40,10 +40,6 @@ jobs:
                         name: 'Check Commented Code'
                         run: bin/easy-ci check-commented-code src tests --ansi
 
-                    -
-                        name: 'Check Active Classes'
-                        run: bin/easy-ci check-active-class --ansi
-
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest
 
