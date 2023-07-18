@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Composer\Semver\Semver;
 use Composer\Semver\VersionParser;
-use Nette\Neon\Decoder;
 use PhpParser\NodeFinder;
 use PhpParser\Parser;
 use PhpParser\ParserFactory;
@@ -32,20 +31,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]);
 
     $services->load('Symplify\EasyCI\\', __DIR__ . '/../packages')
-        ->exclude([
-            __DIR__ . '/../packages/StaticDetector/ValueObject',
-            __DIR__ . '/../packages/ActiveClass/ValueObject',
-            __DIR__ . '/../packages/Psr4/ValueObject',
-        ]);
+        ->exclude([__DIR__ . '/../packages/Psr4/ValueObject']);
 
     // for autowired commands
     $services->alias(Application::class, EasyCIApplication::class);
 
     $services->set(VersionParser::class);
     $services->set(Semver::class);
-
-    // neon
-    $services->set(Decoder::class);
 
     // php-parser
     $services->set(ParserFactory::class);
@@ -58,7 +50,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ClassLikeExistenceChecker::class);
 
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::TYPES_TO_SKIP, []);
     $parameters->set(Option::EXCLUDED_CHECK_PATHS, []);
 
     $services->set(ParserFactory::class);
