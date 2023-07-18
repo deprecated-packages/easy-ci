@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCI\Tests\Config\ConfigFileAnalyzer\NonExistingClassConstantExtractor;
 
-use PHPUnit\Framework\Attributes\DataProvider;
 use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symplify\EasyCI\Config\ConfigFileAnalyzer\NonExistingClassConstantConfigFileAnalyzer;
 use Symplify\EasyCI\Kernel\EasyCIKernel;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;

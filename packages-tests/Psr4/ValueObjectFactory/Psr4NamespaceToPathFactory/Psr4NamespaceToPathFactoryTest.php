@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCI\Tests\Psr4\ValueObjectFactory\Psr4NamespaceToPathFactory;
 
-use PHPUnit\Framework\Attributes\DataProvider;
 use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symplify\EasyCI\Kernel\EasyCIKernel;
 use Symplify\EasyCI\Psr4\Configuration\Psr4SwitcherConfiguration;
 use Symplify\EasyCI\Psr4\ValueObject\Psr4NamespaceToPath;

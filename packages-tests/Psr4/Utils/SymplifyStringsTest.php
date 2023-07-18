@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCI\Tests\Psr4\Utils;
 
-use PHPUnit\Framework\Attributes\DataProvider;
 use Iterator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symplify\EasyCI\Kernel\EasyCIKernel;
 use Symplify\EasyCI\Psr4\Utils\SymplifyStrings;
 use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
