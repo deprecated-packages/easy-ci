@@ -22,7 +22,9 @@ final class UnitTestFilter
     {
         return array_filter(
             $testClassesToFilePaths,
-            fn (string $testClass): bool => $this->isUnitTest($testClass),
+            function (string $testClass) : bool {
+                return $this->isUnitTest($testClass);
+            },
             ARRAY_FILTER_USE_KEY
         );
     }
