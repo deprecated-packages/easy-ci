@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-use Composer\Semver\Semver;
-use Composer\Semver\VersionParser;
 use PhpParser\NodeFinder;
 use PhpParser\Parser;
 use PhpParser\ParserFactory;
@@ -44,15 +42,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // for autowired commands
     $services->alias(Application::class, EasyCIApplication::class);
-
-    $services->set(VersionParser::class);
-    $services->set(Semver::class);
-
-    // php-parser
-    $services->set(ParserFactory::class);
-    $services->set(Parser::class)
-        ->factory([service(ParserFactory::class), 'create'])
-        ->args([ParserFactory::PREFER_PHP7]);
 
     $services->set(Standard::class);
     $services->set(NodeFinder::class);
