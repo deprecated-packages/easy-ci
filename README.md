@@ -5,7 +5,6 @@
 Tools that make easy to setup CI.
 
 - Check git conflicts in CI
-- Check TWIG templates for missing classes, non-existing static calls and constant fetches
 - Check YAML configs for the same
 
 ## Install
@@ -48,25 +47,7 @@ Supported types are YAML.
 
 <br>
 
-### 3. Check Twig Controller Paths
-
-```bash
-vendor/bin/easy-ci check-twig-render src/Controller
-```
-
-```php
-final class SomeController
-{
-    public function index()
-    {
-        return $this->render('does_path_exist.twig');
-    }
-}
-```
-
-<br>
-
-### 4. Detect Commented Code
+### 3. Detect Commented Code
 
 Have you ever forgot commented code in your code?
 

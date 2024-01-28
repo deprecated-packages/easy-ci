@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCI\Command;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCI\Comments\CommentedCodeAnalyzer;
 use Symplify\EasyCI\ValueObject\Option;
-use Symplify\PackageBuilder\Console\Command\Command;
 
 final class CheckCommentedCodeCommand extends Command
 {
