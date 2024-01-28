@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Finder\Finder;
 use Symplify\EasyCI\Git\ConflictResolver;
 
 final class CheckConflictsCommand extends Command
@@ -33,9 +34,11 @@ final class CheckConflictsCommand extends Command
         /** @var string[] $source */
         $source = (array) $input->getArgument('sources');
 
-        $fileInfos = $this->smartFinder->find($source, '*', ['vendor']);
+        $finder = Finder::create()->files()->in($source)->notPath('vendor');
+        $fileInfos = iterator_to_array($finder->getIterator());
+        $filePaths = array_keys($fileInfos);
 
-        $conflictsCountByFilePath = $this->conflictResolver->extractFromFileInfos($fileInfos);
+        $conflictsCountByFilePath = $this->conflictResolver->extractFromFileInfos($filePaths);
         if ($conflictsCountByFilePath === []) {
             $message = sprintf('No conflicts found in %d files', count($fileInfos));
             $this->symfonyStyle->success($message);

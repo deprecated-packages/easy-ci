@@ -37,17 +37,7 @@ The `/vendor` directory is excluded by default.
 
 <br>
 
-### 2. Check Configs for Non-Existing Classes
-
-```bash
-vendor/bin/easy-ci check-config src
-```
-
-Supported types are YAML.
-
-<br>
-
-### 3. Detect Commented Code
+### 2. Detect Commented Code
 
 Have you ever forgot commented code in your code?
 

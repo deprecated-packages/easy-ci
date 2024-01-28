@@ -25,7 +25,6 @@ final class ProjectFilesFinder
             ->in($paths)
             ->sortByName();
 
-        return $finder->getIterator()
-            ->getArrayCopy();
+        return iterator_to_array($finder->getIterator());
     }
 }

@@ -9,13 +9,13 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\EasyCI\Finder\ProjectFilesFinder;
+use Symplify\EasyCI\Finder\FilesFinder;
 use Symplify\EasyCI\Resolver\TooLongFilesResolver;
 
 final class ValidateFileLengthCommand extends Command
 {
     public function __construct(
-        private readonly ProjectFilesFinder $projectFilesFinder,
+        private readonly FilesFinder $projectFilesFinder,
         private readonly SymfonyStyle $symfonyStyle,
         private readonly TooLongFilesResolver $tooLongFilesResolver
     ) {
