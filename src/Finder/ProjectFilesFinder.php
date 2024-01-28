@@ -4,19 +4,14 @@ declare(strict_types=1);
 
 namespace Symplify\EasyCI\Finder;
 
-use Symplify\SmartFileSystem\Finder\SmartFinder;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 final class ProjectFilesFinder
 {
-    public function __construct(
-        private readonly SmartFinder $smartFinder
-    ) {
-    }
-
     /**
      * @param string[] $sources
-     * @return SmartFileInfo[]
+     * @return SplFileInfo[]
      */
     public function find(array $sources): array
     {
@@ -25,6 +20,11 @@ final class ProjectFilesFinder
             $paths[] = getcwd() . DIRECTORY_SEPARATOR . $source;
         }
 
-        return $this->smartFinder->find($paths, '*');
+        $finder = Finder::create()
+            ->files()
+            ->in($paths)
+            ->sortByName();
+
+        return $finder->getIterator()->getArrayCopy();
     }
 }

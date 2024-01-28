@@ -10,9 +10,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\EasyCI\Console\Output\FileErrorsReporter;
 use Symplify\EasyCI\Twig\TwigTemplateProcessor;
 use Symplify\EasyCI\ValueObject\Option;
-use Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+use Symplify\PackageBuilder\Console\Command\Command;
 
-final class CheckTwigTemplateCommand extends AbstractSymplifyCommand
+final class CheckTwigTemplateCommand extends Command
 {
     public function __construct(
         private readonly TwigTemplateProcessor $twigTemplateProcessor,

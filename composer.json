@@ -11,7 +11,8 @@
         "nette/robot-loader": "^3.4",
         "nette/utils": "^3.2",
         "symfony/console": "^6.3",
-        "symfony/dependency-injection": "6.1.*"
+        "symfony/dependency-injection": "6.1.*",
+        "symfony/finder": "^7.0"
     },
     "require-dev": {
         "cweagans/composer-patches": "^1.7",

@@ -12,9 +12,9 @@ use Symplify\EasyCI\Template\RenderMethodTemplateExtractor;
 use Symplify\EasyCI\Template\TemplatePathsResolver;
 use Symplify\EasyCI\Twig\TwigAnalyzer;
 use Symplify\EasyCI\ValueObject\Option;
-use Symplify\PackageBuilder\Console\Command\AbstractSymplifyCommand;
+use Symplify\PackageBuilder\Console\Command\Command;
 
-final class CheckTwigRenderCommand extends AbstractSymplifyCommand
+final class CheckTwigRenderCommand extends Command
 {
     public function __construct(
         private readonly TemplatePathsResolver $templatePathsResolver,
