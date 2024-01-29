@@ -26,7 +26,7 @@ final class ValidateFileLengthCommand extends Command
     {
         $this->setName('validate-file-length');
 
-        $this->setDescription('[CI] Make sure the file path length are not breaking normal Windows max length');
+        $this->setDescription('Make sure the file path length are not breaking normal Windows max length');
         $this->addArgument('sources', InputArgument::REQUIRED | InputArgument::IS_ARRAY, 'Path to project');
     }
 
