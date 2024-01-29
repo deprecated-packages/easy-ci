@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Finder\Finder;
+use Symplify\EasyCI\Finder\FilesFinder;
 use Symplify\EasyCI\Git\ConflictResolver;
 
 final class CheckConflictsCommand extends Command
@@ -31,12 +31,14 @@ final class CheckConflictsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var string[] $source */
-        $source = (array) $input->getArgument('sources');
+        /** @var string[] $sources */
+        $sources = (array) $input->getArgument('sources');
 
-        $finder = Finder::create()->files()->in($source)->notPath('vendor');
-        $fileInfos = iterator_to_array($finder->getIterator());
-        $filePaths = array_keys($fileInfos);
+        $fileInfos = FilesFinder::find($sources);
+        $filePaths = [];
+        foreach ($fileInfos as $fileInfo) {
+            $filePaths[] = $fileInfo->getRealPath();
+        }
 
         $conflictsCountByFilePath = $this->conflictResolver->extractFromFileInfos($filePaths);
         if ($conflictsCountByFilePath === []) {
