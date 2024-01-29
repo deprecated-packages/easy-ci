@@ -6,7 +6,7 @@ namespace Symplify\EasyCI\Finder;
 
 use Symplify\EasyCI\RobotLoader\PhpClassLoader;
 
-final class MultipleClassInOneFileFinder
+final readonly class MultipleClassInOneFileFinder
 {
     public function __construct(
         private PhpClassLoader $phpClassLoader
@@ -26,6 +26,6 @@ final class MultipleClassInOneFileFinder
             $classesByFile[$file][] = $class;
         }
 
-        return array_filter($classesByFile, fn (array $classes): bool => count($classes) >= 2);
+        return array_filter($classesByFile, static fn(array $classes): bool => count($classes) >= 2);
     }
 }

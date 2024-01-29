@@ -14,8 +14,8 @@ use Symplify\EasyCI\Finder\MultipleClassInOneFileFinder;
 final class FindMultiClassesCommand extends Command
 {
     public function __construct(
-        private MultipleClassInOneFileFinder $multipleClassInOneFileFinder,
-        private SymfonyStyle $symfonyStyle,
+        private readonly MultipleClassInOneFileFinder $multipleClassInOneFileFinder,
+        private readonly SymfonyStyle $symfonyStyle,
     ) {
         parent::__construct();
     }
