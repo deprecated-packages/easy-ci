@@ -26,6 +26,7 @@ final class NamespaceToPSR4Command extends Command
     protected function configure(): void
     {
         $this->setName('namespace-to-psr-4');
+
         $this->setDescription('Change namespace in your PHP files to match PSR-4 root');
 
         $this->addArgument(
@@ -51,13 +52,13 @@ final class NamespaceToPSR4Command extends Command
 
         $changedFilesCount = 0;
 
-        /** @var \Symfony\Component\Finder\SplFileInfo $fileInfo */
+        /** @var SplFileInfo $fileInfo */
         foreach ($fileInfos as $fileInfo) {
             $expectedNamespace = $this->resolveExpectedNamespace($namespaceRoot, $fileInfo);
             $expectedNamespaceLine = 'namespace ' . $expectedNamespace . ';';
 
             // 1. got the correct namespace
-            if (Strings::contains($fileInfo->getContents(), $expectedNamespaceLine)) {
+            if (\str_contains($fileInfo->getContents(), $expectedNamespaceLine)) {
                 continue;
             }
 
@@ -82,7 +83,11 @@ final class NamespaceToPSR4Command extends Command
             ++$changedFilesCount;
         }
 
-        $this->symfonyStyle->success(sprintf('Fixed %d files', $changedFilesCount));
+        if ($changedFilesCount === 0) {
+            $this->symfonyStyle->success(sprintf('All %d files have correct namespace', count($fileInfos)));
+        } else {
+            $this->symfonyStyle->success(sprintf('Fixed %d files', $changedFilesCount));
+        }
 
         return self::SUCCESS;
     }
@@ -97,10 +102,9 @@ final class NamespaceToPSR4Command extends Command
             ->in([$path])
             ->name('*.php')
             ->sortByName()
-            ->filter(function (SplFileInfo $fileInfo): bool {
+            ->filter(static fn (SplFileInfo $fileInfo): bool =>
                 // filter classes
-                return str_contains($fileInfo->getContents(), 'class ');
-            });
+                str_contains($fileInfo->getContents(), 'class '));
 
         return iterator_to_array($finder->getIterator());
     }
