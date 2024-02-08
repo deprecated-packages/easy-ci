@@ -5,6 +5,7 @@
 Tools that make easy to setup CI.
 
 - Check git conflicts in CI
+- Check TWIG templates for missing classes, non-existing static calls and constant fetches
 - Check YAML configs for the same
 
 ## Install
@@ -37,7 +38,43 @@ The `/vendor` directory is excluded by default.
 
 <br>
 
-### 2. Detect Commented Code
+### 2. Check Configs for Non-Existing Classes
+
+```bash
+vendor/bin/easy-ci check-config src
+```
+
+Supported types are YAML.
+
+<br>
+
+### 3. Check Twig Controller Paths
+
+```bash
+vendor/bin/easy-ci check-twig-render src/Controller
+```
+
+```php
+final class SomeController
+{
+    public function index()
+    {
+        return $this->render('does_path_exist.twig');
+    }
+}
+```
+
+<br>
+
+### 4. Detect Static Calls in Your Code
+
+```bash
+vendor/bin/easy-ci detect-static src
+```
+
+<br>
+
+### 5. Detect Commented Code
 
 Have you ever forgot commented code in your code?
 
@@ -52,37 +89,6 @@ Clutter no more! Add `check-commented-code` command to your CI and don't worry a
 ```bash
 vendor/bin/easy-ci check-commented-code <directory>
 vendor/bin/easy-ci check-commented-code packages --line-limit 5
-```
-
-<br>
-
-### 3. Find multiple classes in single file
-
-To make PSR-4 work properly, each class must be in its own file. This command makes it easy to spot multiple classes in single file:
-
-```bash
-vendor/bin/easy-ci find-multi-classes src
-```
-
-<br>
-
-### 4. Update Namespace to match PSR-4 Root
-
-Is your class in wrong namespace? Make it match your PSR-4 root:
-
-```bash
-vendor/bin/easy-ci namespace-to-psr-4 src --namespace-root "App\\"
-```
-
-This will update all files in your `/src` directory, to starts with `App\\` and follow full PSR-4 path:
-
-```diff
- # file path: src/Repository/TalkRepository.php
-
--namespace Model;
-+namespace App\Repository;
-
- ...
 ```
 
 <br>
